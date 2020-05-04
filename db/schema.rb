@@ -13,10 +13,9 @@
 ActiveRecord::Schema.define(version: 20200504105545) do
 
   create_table "developer", force: :cascade do |t|
-    t.string  "name"
-    t.integer "age"
-    t.string  "language"
-    t.string  "email"
+    t.string "name"
+    t.string "language"
+    t.string "email"
   end
 
   create_table "project", force: :cascade do |t|
