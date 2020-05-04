@@ -4,6 +4,7 @@ class CreateProjects < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :category
       t.integer :developer_id
-      t.interger :user_id
+      t.integer :user_id
+    end
   end
 end
