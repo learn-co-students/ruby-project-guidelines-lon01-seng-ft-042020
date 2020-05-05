@@ -1,6 +1,9 @@
-# Module One Final Project Guidelines
+# Module One Final Project: DEV App
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+Welcome to DEV app, a tool to match you with th emost talented designers across the world to build your apps. 
+
+We believe that you shouldn't have to 
+<!-- Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
 
 For your final project, we'll be building a Command Line database application.
 
@@ -56,4 +59,4 @@ Projects need to be approved prior to launching into them, so take some time to 
 ```ruby
 # in config/environment.rb add this line:
 ActiveRecord::Base.logger = nil
-```
+``` -->
