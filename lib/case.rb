@@ -9,10 +9,4 @@ class Case < ActiveRecord::Base
     def suspects
         CaseSuspect.all.map{|cs| cs.suspect}
     end
-
-    
-        
-
-
-
 end
