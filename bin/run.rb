@@ -1,5 +1,7 @@
 require_relative '../config/environment'
 
+#YOU SHOULD BE ABLE TO SEE THIS
+
 #welcome message
 puts "DEVs = making logo "
 puts" "
@@ -27,7 +29,8 @@ puts " "
 puts "If you'd like to start working with #{developer.name}, tell us the name of your new app:"
 new_app_name = gets.chomp
 
-#create a new project instance
+#create a new project instance 
+
 Project.create(name: "#{new_app_name}")
 puts "Okay great, we've created a new project for you and #{developer.name} to start working on #{new_app_name}."
 
