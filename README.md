@@ -16,8 +16,6 @@ Simply tell us which langauge you want to build your app in and we'll take care 
 
 If you run into any difficulties, you can find the full installation process here: https://github.com/faker-ruby/faker/blob/master/README.md
 
-## A contributors guide
-
 
 ## License 
 
