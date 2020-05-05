@@ -1,4 +1,4 @@
 class Project < ActiveRecord::Base
-    belongs_to :users
-    belongs_to :developers
+    belongs_to :user
+    belongs_to :developer
 end

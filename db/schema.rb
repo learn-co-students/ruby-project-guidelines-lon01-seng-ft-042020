@@ -12,20 +12,20 @@
 
 ActiveRecord::Schema.define(version: 20200504105545) do
 
-  create_table "developer", force: :cascade do |t|
+  create_table "developers", force: :cascade do |t|
     t.string "name"
     t.string "language"
     t.string "email"
   end
 
-  create_table "project", force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.string  "name"
     t.string  "category"
     t.integer "developer_id"
     t.integer "user_id"
   end
 
-  create_table "user", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
   end
 
