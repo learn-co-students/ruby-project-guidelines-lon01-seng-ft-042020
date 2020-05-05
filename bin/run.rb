@@ -18,10 +18,10 @@ puts "Thanks #{new_user_name}, now let us know which program you want your app b
 new_app_language = gets.chomp
 
 #iertate over all the developers and find someone who specialises in that same language
-developer = Developer.all.select {|developer| developer.language == new_app_language}
+developer = Developer.all.select {|developer| developer.language == new_app_language}[0]
 
 #show the user their match
-puts "Congratulations, we've matched you with #{developer}, who is an expert in #{new_app_language}."
+puts "Congratulations, we've matched you with #{developer.name}, who is an expert in #{new_app_language}."
 puts " "
 
 #get the name of the new app to create a new project instance
@@ -29,7 +29,7 @@ puts "If you'd like to start working with #{developer.name}, tell us the name of
 new_app_name = gets.chomp
 
 #create a new project instance 
-Project.create()
+Project.create(name: "#{new_app_name}")
 puts "Okay great, we've created a new project for you and #{developer.name} to start working on #{new_app_name}."
 
 # puts "Okay, we've found #{response.count]} developer(s) that match(es) your request." # ??????
