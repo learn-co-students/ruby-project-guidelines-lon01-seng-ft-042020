@@ -1,5 +1,7 @@
 require_relative '../config/environment'
 
+#YOU SHOULD BE ABLE TO SEE THIS
+
 #welcome message
 puts "DEVs = making logo "
 puts" "
