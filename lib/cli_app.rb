@@ -21,8 +21,9 @@ class CliApp
     end
 
     def delete_suspect
+        activities_on_island = ["play video games", "play tennis", "fly planes", "learn how to salsa", "swim with dolphins"]
         spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :bouncing_ball)
-        @prompt.error("     Careful! Once you deleted a suspect, YOU MAY let a criminal scape!!!")
+        @prompt.error("     Careful! Once you deleted a suspect, YOU MAY let a criminal escape!!!")
         choices = Suspect.all.map{|suspect|{name: suspect.name, value: suspect}}
         choice = @prompt.select("   Choose one suspect to delete from the list:", choices)
         spinner.auto_spin
@@ -30,7 +31,7 @@ class CliApp
         prompt.warn("   You are letting #{choice.name} escape right now!")
         sleep(2)
         spinner.stop("!DONE!")
-        prompt.error("#{choice.name} has gone to play videogame in a private Island!")
+        prompt.error("#{choice.name} has gone to #{activities_on_island.sample} on a private island!")
         choice.destroy
         
         nil
@@ -49,84 +50,119 @@ class CliApp
     end
 
     def method
-        d1 = Detective.new
-        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :toggle)
+        @d1 = Detective.new
+        @spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :toggle)
         c = ["suspects_over_age", "suspects_by_location", "suspects_by_gender", "suspects_by_hair_color", "drunk_people", "into_tech", "speaks_a_lot", "one_thing_about_me"]
         @prompt.warn("      Choose one method to help you on the next desicion. BE SMART!")
         choice = @prompt.select("CHOICE =", c)
 
         if choice == "suspects_over_age"
-            answer = prompt.ask('   Tell over what age do you wanna see the suspects?')
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.suspects_over_age(answer))
-            spinner.stop("! - DONE - !")
-            
-            nil 
+            suspects_over_age?
         elsif 
             choice == "suspects_by_location"
-            answer = prompt.ask('   Tell what city you wanna look for the suspects!')
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.suspects_by_location(answer))
-            spinner.stop("! - DONE - !")
-            
-            nil 
+            suspects_by_location?
         elsif 
             choice == "suspects_by_hair_color"
-            answer = prompt.ask('   What hair color are you looking for?')
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.suspects_by_hair_color(answer))
-            spinner.stop("! - DONE - !")
-            
-            nil 
+            suspects_by_hair_color?
         elsif
             choice == "drunk_people"
-            @prompt.ok("    These are people that drinks regulary!!!")
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.drunk_people)
-            spinner.stop("  ! - DONE - !")
-            
-            nil 
+            drunk_people?
         elsif    
             choice == "into_tech"
-            @prompt.ok("    They are nerds!!!")
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.into_tech)
-            spinner.stop("  ! - DONE - !")
-            
-            nil 
+            into_tech?
         elsif    
             choice == "speaks_a_lot"
-            @prompt.ok("    Those who speaks more than one language")
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.speaks_a_lot)
-            spinner.stop("  ! - DONE - !")
-            
-            nil 
+            speaks_a_lot?
         elsif    
             choice == "one_thing_about_me"
-            answer = prompt.ask('   What person do you wanna know about?')
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.one_thing_about_me(answer))
-            spinner.stop("  ! - DONE - !")
-            
-            nil
+            one_thing_about_me?
         elsif    
             choice == "suspects_by_gender"
-            answer = prompt.ask('   What gender are you looking for?')
-            spinner.auto_spin
-            sleep(4)
-            @prompt.ok(d1.suspects_by_gender(answer))
-            spinner.stop("  ! - DONE - !")
-            nil
+            suspects_by_gender?
         end
     end
+
+    def suspects_over_age?
+        answer = prompt.ask('   Tell over what age do you wanna see the suspects?')
+        @spinner.auto_spin
+        sleep(4)
+        @prompt.ok(@d1.suspects_over_age(answer))
+        @spinner.stop("! - DONE - !")
+        nil 
+    end
+
+    def suspects_by_location?
+        answer = prompt.ask('   Tell what city you wanna look for the suspects!')
+        @spinner.auto_spin
+        sleep(4)
+        @prompt.ok(@d1.suspects_by_location(answer))
+        if @d1.suspects_by_location(answer).length == 0
+            prompt.error("There are no suspects in that location!")
+            @spinner.stop("! - DONE - !")
+            method
+        end
+        @spinner.stop("! - DONE - !")
+        nil 
+    end 
+
+    def suspects_by_hair_color?
+        answer = prompt.ask('   What hair color are you looking for?')
+            @spinner.auto_spin
+            sleep(4)
+            @prompt.ok(@d1.suspects_by_hair_color(answer))
+            @spinner.stop("! - DONE - !")
+            nil 
+    end 
+
+    def drunk_people?
+        @prompt.ok("    These are people that drinks regulary!!!")
+            @spinner.auto_spin
+            sleep(4)
+            @prompt.ok(@d1.drunk_people)
+            @spinner.stop("  ! - DONE - !")
+            
+            nil 
+    end 
+
+    def into_tech?
+        @prompt.ok("    They are nerds!!!")
+        @spinner.auto_spin
+        sleep(4)
+        @prompt.ok(@d1.into_tech)
+        @spinner.stop("  ! - DONE - !")
+        
+        nil 
+    end 
+
+    def speaks_a_lot?
+        @prompt.ok("    Those who speaks more than one language")
+            @spinner.auto_spin
+            sleep(4)
+            @prompt.ok(@d1.speaks_a_lot)
+            @spinner.stop("  ! - DONE - !")
+            
+            nil 
+    end 
+
+    def one_thing_about_me?
+        answer = prompt.ask('   What person do you wanna know about?')
+        @spinner.auto_spin
+        sleep(4)
+        @prompt.ok(@d1.one_thing_about_me(answer))
+        @spinner.stop("  ! - DONE - !")
+        
+        nil
+    end 
+
+    def suspects_by_gender?         
+        answer = prompt.ask('   What gender are you looking for? (F/M)')
+        @spinner.auto_spin
+        sleep(4)
+        @prompt.ok(@d1.suspects_by_gender(answer))
+        @spinner.stop("  ! - DONE - !")
+        nil
+    end 
+
 
     def turn
         display_suspects
@@ -144,12 +180,85 @@ class CliApp
     end
 
     def game
-
-        #welcome.....
-        #tell story...
-        #turn
+        puts WELCOME
+        sleep(5)
+        puts BY
+        sleep(3)
+        intro
+        turn
+        part_2
+        turn
+        part_3
+        turn 
+        part_4
+        turn 
+        part_5
+        turn
+        part_6
         #tell more story
         #turn
     end
+
+    def time
+        time = Time.now
+        time.strftime('%H:%M:%S, %a %d %b %Y')
+    end
+
+    def intro
+        puts "Please enter your name to begin the game."
+        username = gets.chomp
+        puts "Welcome, Detective #{username}. There has been a theft at Flatiron School."
+        puts ""
+        puts "We know very little. Only that an important piece of tech was stolen from the campus, \n sometime in the last couple of hours. You are the first person to arrive at the crime \n scene at #{time}, but your Sergeant Chief has already rounded up a \n list of 15 suspects that have been known for this kind of theft before. These guys are \n renowned, the \e[36mStandard Deviants\e[0m of this kind of technological savvy. You are the \e[36mMethod Man\e[0m. \n
+        It’s your job to suss out the culprit."
+        choice = @prompt.yes?("Begin?")
+        if choice
+            part_1
+        end
+    end
+
+    def part_1
+        puts "A thick fog permeates the London streets as you go over evidence from the case. \n The crime was committed right here, in London, so immediately you can strike \n off suspects that weren’t in the country."
+    end
+
+    def part_2
+        puts "You also know that the suspect must’ve been really into tech to attempt such an extraordinary feat."
+    end
+
+    def part_3
+        puts "Good. Now your investigations are under way. Your foot crunches down on the shattered \n glass as you make your way into the building, but you pause just as you reach the door. \n Something catches your eye. There’s a Tamagotchi lying on the floor. You pick it up. \n It looks important."
+        puts ""
+        sleep(2)
+        puts "The building had been closed for renovations for a few months now, so you tread with caution \n through the darkness, side-stepping pipes and displaced concrete. You check for movement, perhaps \n the thief is still lurking in the shadows, but you realise it’s a classic \e[36m404\e[0m: no-ones there."
+        puts ""
+        sleep(2)
+        puts "\e[36mKeep Your Eyes on the Prys\e[0m, Detective."
+        puts ""
+        sleep(2)
+        puts "The smell of alcohol hits your nose. At first you pay no mind to it, but as you look closely, \n you can make something out at the far end of the room. It’s a half empty bottle of Bourbon. \n Interesting… Based on this new evidence, you choose to refine your suspect list even further."
+    end
+
+    def part_4
+        puts "The perpetrator must’ve been here long enough to drink most of their drink, which means they had \n been waiting around for a suspicious amount of time.  What were they waiting for? Any \e[36mtwo-bit Schema\e[0m \n knows not to hang around at the scene of the crime. You think back to the Tamagotchi you found at \n the start of the scene of the crime. What was anyone doing with a Tamagotchi at a crime scene?"
+        puts ""
+        puts "You hazard a guess and infer that your suspect must be under 30 and they must be really into tech."
+    end
+
+    def part_5
+        puts "\e[36mFork it\e[0m,  you think. There’s nothing left to be found here. You emerge from the building onto \n Finsbury Pavement. You are standing in the spill of a streetlight. To your right is Pret. \n To your left is Pret. And up ahead, sure as day, you see a Pret. Through the mist you see a \n quiet residential street, lined with newspapers. Something has been tossed onto the pavement – \n a scattered piece of paper, which you pick up and pocket."
+        puts ""
+        puts "Your phone rings. Word just in from the \e[36mCSS and Desist\e[0m Neighbourhood Watch. A woman was seen \n fleeing the scene of the crime. Let’s refine our suspect list a little further."
+    end
+    
+    def part_6
+        puts "You take another look at the paper you found on the floor. You focus your gaze and see subtle \n etchings on the envelope, as if someone had written something else on a paper on top of it. \n The nearly invisible scratches read…"
+        puts ""
+        sleep(8)
+        puts "                 \e[95mI_Accidently_Drank_1lt_Energy_Drink\e[0m"
+        puts ""
+        sleep(3)
+        puts "Time to make some deductions about this note and it's sender... Could it be… the \e[36mgitface killahs\e[0m, \n who have an affinity for monster drinks? No. Don't go \e[36mJSON Waterfalls\e[0m. \n You take another look at your suspect list and realise it can only be…"
+    end
+
 
 end
