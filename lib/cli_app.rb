@@ -177,6 +177,8 @@ class CliApp
     end 
 
     def turn
+        puts "\n"
+        sleep(3)
         display_suspects
         sleep(2)
         choice = @prompt.yes?("We are going to filter our suspects, do you want to find out more?") 
@@ -292,7 +294,9 @@ class CliApp
         puts "\n"
         puts "As you wade through the mist of quiet residential streets, something stops you. Tossed onto a \n stack of newspapers, you see a scattered piece of paper. It appears blank. You pick it up and \n just before you pocket it, you hesitate. As you focus your gaze, you see subtle etchings on the corner, \n as if someone had written something else on a paper on top of it. The nearly invisible scratches read…."
         puts ""
-        sleep(6)
+        sleep(2)
+        @prompt.keypress("Press to continue...")
+        sleep(2)
         puts "                 \e[95mI_Accidently_Drank_1lt_Energy_Drink\e[0m"
         puts ""
         sleep(3)

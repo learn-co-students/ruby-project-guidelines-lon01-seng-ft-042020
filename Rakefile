@@ -6,6 +6,5 @@ task :console do
   #ActiveRecord::Base.logger = Logger.new(STDOUT)
   ActiveRecord::Base.logger = nil
 
-  
   Pry.start
 end
