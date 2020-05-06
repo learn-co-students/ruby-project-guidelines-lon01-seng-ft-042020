@@ -43,6 +43,7 @@ class CliApp
         spinner.auto_spin
         sleep(2)
         if choice
+            spinner.stop("!DONE!")
             delete_suspect
         end 
         spinner.stop("! - DONE - !")
@@ -175,7 +176,6 @@ class CliApp
         nil 
     end 
 
-
     def turn
         display_suspects
         sleep(2)
@@ -192,32 +192,15 @@ class CliApp
         sleep(2)
         another_delete?
         sleep(2)        
+        another_delete?
+        sleep(2)
         system('clear')
-    end
-
-    def game
-        intro
-        beginning
-        part_1
-        turn
-        part_2
-        turn
-        part_3
-        turn 
-        part_4
-        turn 
-        part_5
-        turn
-        part_6
-        #end win/lose
     end
 
     def time
         time = Time.now
         time.strftime('%H:%M:%S, %a %d %b %Y')
     end
-
-    
 
     def intro
         system('clear')
@@ -258,12 +241,12 @@ class CliApp
     end
 
     def part_3
-        puts "  Good. Now your investigations are under way. Your foot crunches down on the shattered \n glass as you make your way into the building, but you pause just as you reach the door. \n Something catches your eye. There’s a Tamagotchi lying on the floor. You pick it up. \n It looks important."
+        puts "  Good. Now your investigations are under way. Your foot crunches down on the shattered \n glass as you make your way into the building, but you pause just as you reach the door. \n Something catches your eye. There’s a floppy disk lying on the floor. You pick it up. \n It looks important."
         puts ""
         sleep(4)
         @prompt.keypress("Press to continue...")
         puts "\n"
-        puts "  The building had been closed for renovations for a few months now, so you tread with caution \n through the darkness, side-stepping pipes and displaced concrete. You check for movement, perhaps \n the thief is still lurking in the shadows, but you realise it’s a classic \e[36m404\e[0m: no-ones there."
+        puts "  The building had been closed for renovations for a few months now, so you tread with caution \n through the darkness, side-stepping pipes and displaced concrete. You check for movement, perhaps \n the thief is still lurking in the shadows, but you realise it’s a classic \e[36m404\e[0m: no-one found."
         puts ""
         sleep(4)
         puts "\e[36mKeep Your Eyes on the Prys\e[0m, Detective."
@@ -277,34 +260,36 @@ class CliApp
     def part_4
         @prompt.keypress("Press to continue...")
         puts "\n"
-        puts "The perpetrator must’ve been here long enough to drink most of their drink, which means they had \n been waiting around for a suspicious amount of time.  What were they waiting for? Any \e[36mtwo-bit Schema\e[0m \n knows not to hang around at the scene of the crime. You think back to the Tamagotchi you found at \n the start of the scene of the crime. What was anyone doing with a Tamagotchi at a crime scene?"
-        puts "\n"
+        puts "The perpetrator must’ve been waiting around, but what for? Any \e[36mtwo-bit Schema\e[0m \n knows not to hang around at the scene of the crime. You think back to the Floppy Disk you found at \n the start of the scene of the crime. What was anyone doing with such an archaic piece of data storage?"
+        puts "\n" 
         @prompt.keypress("Press to continue...")
         puts "\n"
         puts ""
         sleep(2)
-        puts "You hazard a guess and infer that your suspect must be under 30 and they must be really into tech."
+        puts "You hazard a guess and infer that your suspect must be over 25."
     end
 
     def part_5
         puts "\n"
         @prompt.keypress("Press to continue...")
         puts "\n"
-        puts "\e[36mFork it\e[0m,  you think. There’s nothing left to be found here. You emerge from the building onto \n Finsbury Pavement. You are standing in the spill of a streetlight. To your right is Pret. \n To your left is Pret. And up ahead, sure as day, you see a Pret. Through the mist you see a \n quiet residential street, lined with newspapers. Something has been tossed onto the pavement – \n a scattered piece of paper, which you pick up and pocket."
+        puts "\e[36mFork it\e[0m, you think. There’s nothing left to be found here. You emerge from the building onto \n Finsbury Pavement. You are standing in the spill of a streetlight. To your right is Pret. \n To your left is Pret. And up ahead, sure as day, you see a Pret. As you venture out into the \n foggy abyss, you hear a feigned jingle. Your phone rings."
         sleep(2)
         puts "\n"
         @prompt.keypress("Press to continue...")
         puts "\n"
         sleep(2)
         puts ""
-        puts "Your phone rings. Word just in from the \e[36mCSS and Desist\e[0m Neighbourhood Watch. A woman was seen \n fleeing the scene of the crime. Let’s refine our suspect list a little further."
+        puts "Word just from the \e[36mCSS and Desist\e[0m Neighbourhood Watch. Someone was spotted with blonde hair, \n speaking language that was not distinctly English in and around the time of theft."
+        puts "\n"
+        puts "You’ve almost got them now, the soon to be \e[36mArrested Developer\e[0m. Let’s refine our suspect list a little further."
     end
     
     def part_6
         puts "\n"
         @prompt.keypress("Press to continue...")
         puts "\n"
-        puts "You take another look at the paper you found on the floor. You focus your gaze and see subtle \n etchings on the envelope, as if someone had written something else on a paper on top of it. \n The nearly invisible scratches read…"
+        puts "As you wade through the mist of quiet residential streets, something stops you. Tossed onto a \n stack of newspapers, you see a scattered piece of paper. It appears blank. You pick it up and \n just before you pocket it, you hesitate. As you focus your gaze, you see subtle etchings on the corner, \n as if someone had written something else on a paper on top of it. The nearly invisible scratches read…."
         puts ""
         sleep(6)
         puts "                 \e[95mI_Accidently_Drank_1lt_Energy_Drink\e[0m"
@@ -316,5 +301,21 @@ class CliApp
         puts "Time to make some deductions about this note and it's sender... Could it be… the \e[36mgitface killahs\e[0m, \n who have an affinity for monster drinks? No. Don't go \e[36mJSON Waterfalls\e[0m. \n You take another look at your suspect list and realise it can only be…"
     end
 
+    def game
+        intro
+        beginning
+        part_1
+        turn
+        part_2
+        turn
+        part_3
+        turn 
+        part_4
+        turn 
+        part_5
+        turn
+        part_6
+        #end win/lose
+    end
 
 end

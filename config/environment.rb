@@ -1,8 +1,9 @@
 require 'bundler'
 Bundler.require
 require "tty-prompt"
-require 'tty-table'
-#require 'artii'
+require 'pry'
+BY = File.read('lib/by.txt')
+WELCOME = File.read('lib/welcome.txt')
 
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
