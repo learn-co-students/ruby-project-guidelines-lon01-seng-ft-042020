@@ -217,6 +217,7 @@ class CliApp
         puts BY
         sleep(6)
         spinner.stop("  WISH WE HAD A REALLY COOL MUSIC... ;-D".yellow.bold)
+        sleep(3)
         nil
     end
 
@@ -301,6 +302,39 @@ class CliApp
         puts "Time to make some deductions about this note and it's sender... Could it be… the \e[36mgitface killahs\e[0m, \n who have an affinity for monster drinks? No. Don't go \e[36mJSON Waterfalls\e[0m. \n You take another look at your suspect list and realise it can only be…"
     end
 
+    def final_choice
+        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :bouncing_ball)
+        @prompt.error("     Who are you arresting, detective???")
+        sleep(3)
+        choices = Suspect.all.map{|suspect|{name: suspect.name, value: suspect}}
+        choice = @prompt.select("   WHO IS YOUR FINAL DECISION?", choices)
+        spinner.auto_spin
+        sleep(2)
+        prompt.warn("   YOU ARE ARRESTING #{choice.name}!!!!")
+        sleep(2)
+        spinner.stop("!DONE!")
+        prompt.error("          #{choice.name} IS GONNA HAVE A GOOD TIME PLAYING CARD IN JAIL!!!")     
+        nil
+    end
+
+    def error
+        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :bouncing_ball)
+        prompt.ok(" Good job, detective! The investigation was quick and efficient!")
+        sleep(3)
+
+        prompt.warn("   Oh, no! The local police just confirmed they've arrested the correct suspect!!!")
+        puts "\n"
+        sleep(3)
+        prompt.error("      YOU ARRESTED THE WRONG PERSON!!")
+        sleep(5)
+        spinner.auto_spin
+        puts "\n"
+        prompt.warn("   Turns out the suspect was identified under the name of Chuk Orakwusi! \n He was drunk when he left a drag party! and realized he wanted to use the school server to play games!")
+        spinner.stop("!DONE!")
+        sleep(7)
+        puts BYE
+    end
+
     def game
         intro
         beginning
@@ -315,7 +349,8 @@ class CliApp
         part_5
         turn
         part_6
-        #end win/lose
+        final_choice
+        error
     end
 
 end
