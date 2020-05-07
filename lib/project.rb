@@ -2,27 +2,6 @@ class Project < ActiveRecord::Base
     belongs_to :user
     belongs_to :developer
 
-  # helper method for create_new_project method
-  # Set[] - data type represents a collcection of uniq elements
-#   def self.available_languages
-#     @languages = Set[]
-#     # for each developer add developer language to Set[], add element to Set[]
-#     Developer.all.each { |developer| @languages.add(developer.language) }
-#     return @languages
-#   end
-  
-#   def self.developer_options(developers)
-#     @results = []
-#     developers.each { |developer| @results.push("(ID: #{developer.id}) #{developer.name}")}
-#     return @results
-#   end
-  
-#   def self.developer_ids(developers)
-#     @developer_ids = []
-#     developers.each { |developer| @developer_ids.push("#{developer.id}")}
-#     return @developer_ids
-#   end
-  
   # option no 1 - create new project
   def self.create_new_project
     puts "To get started, tell us your name:"
@@ -47,10 +26,15 @@ class Project < ActiveRecord::Base
     puts "If you'd like to start working with #{developer.name}, tell us the name of your new app:"
     new_app_name = gets.chomp
   
+#  # get the category of the new app to create a new project instance
+    new_app_category = User.prompt_user_for_input(info_string: "To be more organize, you can fall your app into one of categories below:",print_options: self.available_categories(), 
+                                        prompt_string: "Choose the most fitted category for your app:", invalid_string: "You put unrecognized category. Try agian.")
+
+
   # create a new project instance
-    project = Project.create(name: "#{new_app_name}")
-    puts "Okay great, we've created a new project for you and #{developer.name} to start working on #{new_app_name}.\n"
-    puts "HURRRRA!!! ALL SET! NOW JUST START ENJOY TO PROCCES BUIDING #{new_app_name}!"
+    project = Project.create(name: "#{new_app_name}", category: "#{new_app_category}")
+    puts "Okay great, we've created a new project for you and #{developer.name} to start working on #{new_app_name}.\n\n"
+    puts "HURRRRA!!! ALL SET! NOW JUST START ENJOY TO PROCCES BUIDING #{new_app_name}!\n"
     end
 
     # helper methods for update_project method and delete_project method
@@ -74,27 +58,37 @@ class Project < ActiveRecord::Base
     return @categories
   end
   
-  def self.update_project_category(project)
-    category = User.prompt_user_for_input(info_string: "Update the category of your app. Your choices are:",print_options: self.available_categories(), 
-                                        prompt_string: "Enter the category of your app:", invalid_string: "Category not recognized")
-    project.category = category
+#  add new method change the app by category
+#   def self.update_project_category(project)
+#     category = User.prompt_user_for_input(info_string: "Update the category of your app. Your choices are:",print_options: self.available_categories(), 
+#                                         prompt_string: "Enter the category of your app:", invalid_string: "Category not recognized")
+#     project.category = category
+#     project.save()
+#   end
+  
+#   def self.read_project(project) # ??after change the directory stop working
+#     puts "Currenty the name of your app is #{project.name} with #{project.category} category, what is creating by #{self.read_developer_from_project(project)}.\n"
+#   end 
+  
+#   def self.read_developer_from_project(project) #??after change directory stop working
+#     developer = Developer.find(project.developer_id)
+#     developer.name
+#   end
+  
+  def self.update_project_name(project)
+    puts "Let's update the name of your app!"
+    puts "Enter the new name of your app:"
+    new_name = gets.chomp
+    project.name = new_name
     project.save()
   end
-  
-  def self.read_project(project) # ??after change the directory stop working
-    puts "Currenty the name of your app is #{project.name} with #{project.category} category, what is creating by #{self.read_developer_from_project(project)}.\n"
-  end 
-  
-  def self.read_developer_from_project(project) #??after change directory stop working
-    developer = Developer.find(project.developer_id)
-    developer.name
-  end
-  
-  # option no 2 - update project
+
+  # option no 2 - update project 
   def self.update_project
     project = self.find_project_by_name()
     # self.read_project(project)
-    self.update_project_category(project)
+    self.update_project_name(project)
+    # self.update_project_category(project)
     puts "Project was successfully updated"
   end
   
