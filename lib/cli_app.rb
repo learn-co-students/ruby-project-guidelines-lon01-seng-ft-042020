@@ -21,7 +21,8 @@ class CliApp
     end
 
     def delete_suspect
-        activities_on_island = ["play video games", "play tennis", "fly planes", "learn how to salsa", "swim with dolphins"]
+        activities = ["play video games", "learn how to play the ukelele", "fly planes", "learn how to salsa", "swim with dolphins", "run a drug cartel", "learn how to yodel", "ballroom dance"]
+        location = ["on a private island", "in China", "in Colombia", "in Brazil", "in North Korea"]
         spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :bouncing_ball)
         @prompt.error("     Careful! Once you deleted a suspect, YOU MAY let a criminal escape!!!")
         choices = Suspect.all.map{|suspect|{name: suspect.name, value: suspect}}
@@ -31,7 +32,7 @@ class CliApp
         prompt.warn("   You are letting #{choice.name} escape right now!")
         sleep(2)
         spinner.stop("!DONE!")
-        prompt.error("#{choice.name} has gone to #{activities_on_island.sample} on a private island!")
+        prompt.error("#{choice.name} has gone to #{activities.sample} #{location.sample}!")
         choice.destroy
         
         nil
@@ -193,7 +194,9 @@ class CliApp
         delete_suspect
         sleep(2)
         another_delete?
-        sleep(2)        
+        sleep(2)       
+        @prompt.warn("One more???")
+        sleep(2)
         another_delete?
         sleep(2)
         system('clear')
@@ -257,7 +260,7 @@ class CliApp
         sleep(2)
         @prompt.keypress("Press to continue...")
         puts "\n"
-        puts "  The smell of alcohol hits your nose. At first you pay no mind to it, but as you look closely, \n you can make something out at the far end of the room. It’s a half empty bottle of Bourbon. \n Interesting… Based on this new evidence, you choose to refine your suspect list even further."
+        puts "  The smell of alcohol hits your nose. As you look closely, you can make something out at the far \n end of the room. It’s a half empty bottle of Bourbon. Interesting… Based on this new evidence, \n you choose to refine your suspect list even further."
     end
 
     def part_4
@@ -283,7 +286,7 @@ class CliApp
         puts "\n"
         sleep(2)
         puts ""
-        puts "Word just from the \e[36mCSS and Desist\e[0m Neighbourhood Watch. Someone was spotted with blonde hair, \n speaking language that was not distinctly English in and around the time of theft."
+        puts "Word just in from the \e[36mCSS and Desist\e[0m Neighbourhood Watch. Someone was spotted with blonde hair, \n speaking a language that was not distinctly English, in and around the time of theft."
         puts "\n"
         puts "You’ve almost got them now, the soon to be \e[36mArrested Developer\e[0m. Let’s refine our suspect list a little further."
     end
@@ -335,8 +338,9 @@ class CliApp
         puts "\n"
         prompt.warn("   Turns out the suspect was identified under the name of Chuk Orakwusi! \n He was drunk when he left a drag party! and realized he wanted to use the school server to play games!")
         spinner.stop("!DONE!")
-        sleep(7)
+        sleep(11)
         puts BYE
+        @prompt.keypress("Press to quit...")
     end
 
     def game

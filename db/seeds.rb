@@ -4,7 +4,7 @@ Suspect.create(name: "Charlie Payne", age: 27, gender: "F", location: "London", 
 Suspect.create(name: "Chuk Orakwusi", age: 29, gender: "M", location: "London", hair_color: "black", one_thing_about: "Doesn't like games.", into_tech: true, drinks_alcohol: true, multilingual: true)
 Suspect.create(name: "Dorothy John", age: 29, gender: "F", location: "London", hair_color: "blonde", one_thing_about: "Loves to run.", into_tech: true, drinks_alcohol: true, multilingual: true)
 Suspect.create(name: "Elena Dinca", age: 35, gender: "F", location: "London", hair_color: "red", one_thing_about: "Gambler.", into_tech: false, drinks_alcohol: true, multilingual: true)
-Suspect.create(name: "Ewelina Szoda", age: 28, gender: "F", location: "London", hair_color: "red", one_thing_about: "Likes energy drink.", into_tech: true, drinks_alcohol: true, multilingual: true)
+Suspect.create(name: "Ewelina Szoda", age: 28, gender: "F", location: "London", hair_color: "blonde", one_thing_about: "Likes energy drink.", into_tech: true, drinks_alcohol: true, multilingual: true)
 Suspect.create(name: "Douglas Martin", age: 21, gender: "M", location: "London", hair_color: "brown", one_thing_about: "Got a huge swimming pool", into_tech: true, drinks_alcohol: true, multilingual: true)
 Suspect.create(name: "Gbenga Ojo-Aromokudu", age: 30, gender: "M", location: "London", hair_color: "blonde", one_thing_about: "Dogs over cats", into_tech: true, drinks_alcohol: true, multilingual: false)
 Suspect.create(name: "Jamie S-Tyler", age: 28, gender: "M", location: "London", hair_color: "blonde", one_thing_about: "Plays Broadland3", into_tech: true, drinks_alcohol: true, multilingual: true)
