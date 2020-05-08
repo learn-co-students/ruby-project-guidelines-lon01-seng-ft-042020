@@ -1,5 +1,5 @@
 require_relative '../config/environment'
 
+cli = CliApp.new
 
-
-puts "HELLO WORLD"
+cli.game
